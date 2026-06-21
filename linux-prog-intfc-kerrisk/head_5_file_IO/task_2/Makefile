@@ -2,7 +2,7 @@ CC = gcc
 
 
 all: main.с
-	$(CC) -o main.c main
+	$(CC) main.c -o main
 
 clean: 
 	rm -f main
