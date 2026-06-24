@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 199309L
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -132,6 +133,8 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < TYPES; i++)
         pthread_join(threads[i], NULL);
+
+    printf("Name: %s\n\n", &argv[0][2]);
 
     printf("============Sort Array============\n");
     printf("\tSize: %d\n\tTime: %lf (sec)\n", size, tasks[SORTARR].result_time);
