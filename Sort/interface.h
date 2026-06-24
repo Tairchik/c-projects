@@ -1,1 +1,0 @@
-void sort(int[], int);

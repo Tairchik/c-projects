@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "interface.h"
+#include "sort.h"
 
 
 void printArray(int array[], int size)
