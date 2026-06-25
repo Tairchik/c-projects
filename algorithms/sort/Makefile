@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I. -pthread
 
-SORTS = bubble insertion
+SORTS = bubble insertion selection
 
 TARGETS = $(SORTS)
 
