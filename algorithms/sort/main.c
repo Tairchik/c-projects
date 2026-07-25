@@ -5,6 +5,29 @@
 #include <pthread.h>
 #include "sort.h"
 
+#define CHECK_SORTED(arr, size)                                                \
+    do {                                                                       \
+        int _is_sorted = 1;                                                \
+        int _bad_idx = -1;                                                     \
+        for (int _i = 0; _i < (size) - 1; _i++) {                              \
+            if ((arr)[_i] > (arr)[_i + 1]) {                                   \
+                _is_sorted = 0;                                            \
+                _bad_idx = _i;                                                 \
+                break;                                                         \
+            }                                                                  \
+        }                                                                      \
+        if (_is_sorted == 1) {                                                      \
+            printf("[OK] %s:%d: Array is correctly sorted!\n",                 \
+                   __FILE__, __LINE__);                                        \
+        } else {                                                               \
+            fprintf(stderr,                                                    \
+                    "[FAIL] %s:%d: Array is NOT sorted! First error at index " \
+                    "%d: (%d > %d)\n",                                         \
+                    __FILE__, __LINE__, _bad_idx, (arr)[_bad_idx],             \
+                    (arr)[_bad_idx + 1]);                                      \
+        }                                                                      \
+    } while (0)
+
 #define DEFFSIZE 1000
 
 #define SORTARR 0
@@ -133,9 +156,8 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < TYPES; i++)
         pthread_join(threads[i], NULL);
-        
-
-    printf("Name: %s\n\n", &argv[0][2]);
+    
+    printf("\nName: %s\n", &argv[0][2]);
 
     printf("============Sort Array============\n");
     printf("\tSize: %d\n\tTime: %lf (sec)\n", size, tasks[SORTARR].result_time);
@@ -148,7 +170,16 @@ int main(int argc, char *argv[])
     printf("===========Random Array===========\n");
     printf("\tSize: %d\n\tTime: %lf (sec)\n", size, tasks[RANDARR].result_time);
     printf("==================================\n");
-    
+
+        
+#ifdef ENABLE_TESTS
+    printf("\n============ Running Tests ================\n");
+    CHECK_SORTED(tasks[SORTARR].arr, size);
+    CHECK_SORTED(tasks[REVSARR].arr, size);
+    CHECK_SORTED(tasks[RANDARR].arr, size);
+    printf("===========================================\n\n");
+#endif
+
     for (int i = 0; i < TYPES; i++)
         free(tasks[i].arr);
 

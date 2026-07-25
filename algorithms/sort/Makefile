@@ -1,14 +1,19 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I. -pthread
 
+ifeq ($(DEBUG),1)
+    CFLAGS += -g -O0 -DDEBUG
+endif
+
+ifeq ($(TEST),1)
+    CFLAGS += -DENABLE_TESTS
+endif
+
 SORTS = bubble insertion selection counter
 
 TARGETS = $(SORTS)
 
 all: $(TARGETS)
-
-debug: CFLAGS += -g -O0
-debug: all
 
 define SORT_RULE
 $(1): main.o src/$(1)/$(1).o
@@ -26,4 +31,4 @@ src/%.o: src/%.c sort.h
 clean:
 	rm -f $(TARGETS) main.o src/*/*.o
 
-.PHONY: all clean
+.PHONY: all clean debug test
