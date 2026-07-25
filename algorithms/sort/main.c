@@ -31,7 +31,7 @@ int *generateSortArray(int size)
     }
 
     for (int i = 0; i < size; i++)
-        array[i] = i;
+        array[i] = i + 1;
 
     return array;
 }
@@ -133,6 +133,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < TYPES; i++)
         pthread_join(threads[i], NULL);
+        
 
     printf("Name: %s\n\n", &argv[0][2]);
 
@@ -147,9 +148,9 @@ int main(int argc, char *argv[])
     printf("===========Random Array===========\n");
     printf("\tSize: %d\n\tTime: %lf (sec)\n", size, tasks[RANDARR].result_time);
     printf("==================================\n");
-
+    
     for (int i = 0; i < TYPES; i++)
-        free(array[i]);
+        free(tasks[i].arr);
 
     return 0;
 }
