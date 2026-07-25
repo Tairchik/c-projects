@@ -1,11 +1,14 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I. -pthread
 
-SORTS = bubble insertion selection
+SORTS = bubble insertion selection counter
 
 TARGETS = $(SORTS)
 
 all: $(TARGETS)
+
+debug: CFLAGS += -g -O0
+debug: all
 
 define SORT_RULE
 $(1): main.o src/$(1)/$(1).o
