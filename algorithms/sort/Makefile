@@ -9,7 +9,7 @@ ifeq ($(TEST),1)
     CFLAGS += -DENABLE_TESTS
 endif
 
-SORTS = bubble insertion selection counter
+SORTS = bubble insertion selection counter quick
 
 TARGETS = $(SORTS)
 

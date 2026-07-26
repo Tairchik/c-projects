@@ -145,6 +145,10 @@ int main(int argc, char *argv[])
     pthread_t threads[TYPES];
     SortTask tasks[TYPES];
 
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setstacksize(&attr, 16 * 1024 * 1024);
+    
     for (int i = 0; i < TYPES; i++)
     {
         tasks[i].arr = array[i];
